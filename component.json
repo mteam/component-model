@@ -1,0 +1,10 @@
+{
+  "name": "component-model",
+  "repo": "mteam/component-model",
+  "version": "0.1.0",
+  "scripts": [
+    "index.js",
+    "component.js",
+    "container.js"
+  ]
+}
