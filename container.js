@@ -4,14 +4,17 @@ function Container(name) {
   Component.call(this, name);
 
   this.components = [];
-  this._cache = null;
+  this.map = {}
 };
 
 Container.prototype = Object.create(Component.prototype);
 
 Container.prototype.add = function(component) {
   this.components.push(component);
-  this._cache = null;
+
+  if (component.name != null) {
+    this.map[component.name] = component;
+  }
   
   if (component instanceof Component) {
     component.attach(this);
@@ -19,33 +22,14 @@ Container.prototype.add = function(component) {
 };
 
 Container.prototype.get = function(name, needed) {
-  if (needed === undefined)
+  if (needed == null)
     needed = true;
 
-  var cache = this._getCache();
-
-  if (cache[name] == null && needed) {
-    throw new Error('Component with name ' + name + ' has not been found');
+  if (this.map[name] == null && needed) {
+    throw Error('Component with name ' + name + ' has not been found');
   }
 
-  return cache[name] || false;
-};
-
-Container.prototype._getCache = function() {
-  if (this._cache == null) {
-    this._createCache();
-  }
-
-  return this._cache;
-};
-
-Container.prototype._createCache = function() {
-  this._cache = {};
-
-  for (var i = 0, c; i < this.components.length; i++) {
-    c = this.components[i];
-    this._cache[c.name] = c;
-  }
+  return this.map[name] || null;
 };
 
 module.exports = Container;
