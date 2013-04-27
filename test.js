@@ -31,6 +31,17 @@ describe('component-model', function() {
       expect(container.components).to.contain(component);
     });
 
+    it('removes component from it', function() {
+      var component = new Component('foo'),
+          container = new Container;
+
+      container.add(component);
+      container.remove(component);
+
+      expect(container.components).to.be.empty();
+      expect(container.map).to.not.have.key('foo');
+    });
+
     it('gets component by name', function() {
       var component = new Component('foo'),
           container = new Container;

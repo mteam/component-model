@@ -21,6 +21,20 @@ Container.prototype.add = function(component) {
   }
 };
 
+Container.prototype.remove = function(component) {
+  var index = this.components.indexOf(component);
+
+  if (index == -1) {
+    throw Error('Component not found');
+  }
+
+  this.components.splice(index, 1);
+
+  if (component.name != null) {
+    delete this.map[component.name];
+  }
+};
+
 Container.prototype.get = function(name, needed) {
   if (needed == null)
     needed = true;
