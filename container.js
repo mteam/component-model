@@ -1,7 +1,9 @@
-var Component = require('./component');
+var Events = require('events');
+    Component = require('./component');
 
 function Container(name) {
   Component.call(this, name);
+  Events.extend(this);
 
   this.components = [];
   this.map = {}
@@ -19,6 +21,8 @@ Container.prototype.add = function(component) {
   if (component instanceof Component) {
     component.attach(this);
   }
+
+  this.trigger('add', component);
 };
 
 Container.prototype.remove = function(component) {
@@ -33,6 +37,8 @@ Container.prototype.remove = function(component) {
   if (component.name != null) {
     delete this.map[component.name];
   }
+
+  this.trigger('remove', component);
 };
 
 Container.prototype.get = function(name, needed) {
