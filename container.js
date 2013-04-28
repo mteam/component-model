@@ -52,4 +52,8 @@ Container.prototype.get = function(name, needed) {
   return this.map[name] || null;
 };
 
+Container.prototype.has = function(name) {
+  return this.get(name, false) != null;
+};
+
 module.exports = Container;
