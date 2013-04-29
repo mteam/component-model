@@ -6,7 +6,7 @@ function Container(name) {
   Events.extend(this);
 
   this.components = [];
-  this.map = {}
+  this.map = {};
 };
 
 Container.prototype = Object.create(Component.prototype);
