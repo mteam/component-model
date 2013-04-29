@@ -41,19 +41,16 @@ Container.prototype.remove = function(component) {
   this.trigger('remove', component);
 };
 
-Container.prototype.get = function(name, needed) {
-  if (needed == null)
-    needed = true;
-
-  if (this.map[name] == null && needed) {
+Container.prototype.get = function(name) {
+  if (this.map[name] == null) {
     throw Error('Component with name ' + name + ' has not been found');
   }
 
-  return this.map[name] || null;
+  return this.map[name];
 };
 
 Container.prototype.has = function(name) {
-  return this.get(name, false) != null;
+  return this.map[name] != null;
 };
 
 module.exports = Container;
